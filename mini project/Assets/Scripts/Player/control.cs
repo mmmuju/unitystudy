@@ -5,8 +5,9 @@ using UnityEngine;
 public class control : MonoBehaviour
 {
     Rigidbody2D rigid;
+    SpriteRenderer spriteRenderer;
+    Animator anim;
     public float jumpPower;
-    bool isJump;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,8 @@ public class control : MonoBehaviour
 
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate() {
@@ -23,8 +26,8 @@ public class control : MonoBehaviour
         if(rigid.velocity.y < 0) {
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.3f, LayerMask.GetMask("Platform"));
             if(rayHit.collider != null) {
-                if(rayHit.distance < 0.8f)
-                    isJump = false;
+                if(rayHit.distance < 0.9f)
+                    anim.SetBool("isJump", false);
             }
         }
     }
@@ -33,21 +36,22 @@ public class control : MonoBehaviour
     void Update()
     {
         // jump
-        if(Input.GetButtonDown("Jump") && !isJump) {
+        if(Input.GetButtonDown("Jump") && !anim.GetBool("isJump")) {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            isJump = true;
-            //anim.SetBool("isJump", true);
+            anim.SetBool("isJump", true);
         }
 
-        /* sprite change
-        if(Input.GetButtonDown("Horizontal"))
-            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+        // slide
+        if (Input.GetKeyDown("down"))
+        {
+            anim.SetBool("isSlide", true);
+        }
 
-        // animation
-        if(rigid.velocity.x == 0)
-            anim.SetBool("isWalk", false);
-        else
-            anim.SetBool("isWalk", true);*/
+        if (Input.GetKeyUp("down"))
+        {
+            anim.SetBool("isSlide", false);
+        }
+
     }
 
 }
