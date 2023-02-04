@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class control : MonoBehaviour
 {
     Rigidbody2D rigid;
+    BoxCollider2D box;
     SpriteRenderer spriteRenderer;
     Animator anim;
     public float jumpPower;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public int hp;
 
     void Awake() {
         rigid = GetComponent<Rigidbody2D>();
+        box = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
     }
 
     void FixedUpdate() {
@@ -35,6 +34,7 @@ public class control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(hp);
         // jump
         if(Input.GetButtonDown("Jump") && !anim.GetBool("isJump")) {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
@@ -53,5 +53,39 @@ public class control : MonoBehaviour
         }
 
     }
+
+    private IEnumerator OnHit(int dmg) {
+        hp -= dmg;
+
+        if(hp == 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+
+        anim.SetBool("isHit", true);
+
+        yield return new WaitForSeconds(1);
+
+        anim.SetBool("isHit", false);
+
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {    
+        // get dmg
+        if(anim.GetBool("isHit") == false) {
+            if (other.gameObject.tag == "Spike")
+            {
+                Debug.Log("spike hit");
+                StartCoroutine(OnHit(1));
+            }
+            else if (other.gameObject.tag == "Icicle" && anim.GetBool("isSlide") == false) {
+                Debug.Log("icicle hit");
+                StartCoroutine(OnHit(1));
+            }
+
+
+        }
+        
+    }
+
 
 }
