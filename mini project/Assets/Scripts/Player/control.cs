@@ -23,7 +23,7 @@ public class control : MonoBehaviour
     void FixedUpdate() {
         // check midair
         if(rigid.velocity.y < 0) {
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.3f, LayerMask.GetMask("Platform"));
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.3f, LayerMask.GetMask("Floor"));
             if(rayHit.collider != null) {
                 if(rayHit.distance < 0.9f)
                     anim.SetBool("isJump", false);
@@ -36,13 +36,14 @@ public class control : MonoBehaviour
     {
         Debug.Log(hp);
         // jump
-        if(Input.GetButtonDown("Jump") && !anim.GetBool("isJump")) {
+        if (Input.GetButtonDown("Jump") && !anim.GetBool("isJump") && !anim.GetBool("isHit"))
+        {
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             anim.SetBool("isJump", true);
         }
 
         // slide
-        if (Input.GetKeyDown("down"))
+        if (Input.GetKeyDown("down") && !anim.GetBool("isHit"))
         {
             anim.SetBool("isSlide", true);
         }
@@ -51,6 +52,7 @@ public class control : MonoBehaviour
         {
             anim.SetBool("isSlide", false);
         }
+        
 
     }
 
@@ -62,14 +64,16 @@ public class control : MonoBehaviour
 
 
         anim.SetBool("isHit", true);
+        this.gameObject.layer = 3;
 
         yield return new WaitForSeconds(1);
 
         anim.SetBool("isHit", false);
+        this.gameObject.layer = 0;
 
     }
 
-    void OnCollisionEnter2D(Collision2D other) {    
+    void OnCollisionStay2D(Collision2D other) {    
         // get dmg
         if(anim.GetBool("isHit") == false) {
             if (other.gameObject.tag == "Spike")

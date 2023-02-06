@@ -750,5 +750,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 3
+  speed: 20
   icicle: {fileID: 8660539502610090601, guid: e28b0f82ced61e34cbe15644c5afa07c, type: 3}
   spike: {fileID: 179315301591660316, guid: c0747121ec60c374e957b56b3c006433, type: 3}

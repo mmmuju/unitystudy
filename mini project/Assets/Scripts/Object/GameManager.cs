@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class generate : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     public float delay;
+    public float speed;
     public GameObject icicle;
     public GameObject spike;
     // Start is called before the first frame update

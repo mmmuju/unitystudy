@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
-    public float speed;
+    GameManager gameManager;   
+    
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
     }
 
@@ -15,6 +17,6 @@ public class movement : MonoBehaviour
     void Update()
     {
         Vector3 curPos = transform.position;
-        transform.position = curPos + Vector3.left * speed * Time.deltaTime;
+        transform.position = curPos + Vector3.left * gameManager.speed * Time.deltaTime;
     }
 }
