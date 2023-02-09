@@ -7,6 +7,9 @@ TagManager:
   - Obstacle
   - Icicle
   - Spike
+  - PlayerBullet
+  - EnemyBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,9 +17,9 @@ TagManager:
   - Invincible
   - Water
   - UI
+  - Enemy
   - Floor
   - Obstacle
-  - 
   - 
   - 
   - 

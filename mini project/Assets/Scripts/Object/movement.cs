@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     GameManager gameManager;   
     
@@ -17,6 +17,6 @@ public class movement : MonoBehaviour
     void Update()
     {
         Vector3 curPos = transform.position;
-        transform.position = curPos + Vector3.left * gameManager.speed * Time.deltaTime;
+        transform.position = curPos + Vector3.left * gameManager.environmentSpeed * Time.deltaTime;
     }
 }

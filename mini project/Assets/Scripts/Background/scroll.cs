@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scroll : MonoBehaviour
+public class Scroll : MonoBehaviour
 {
-    public float speed;
+    GameManager gameManager;
     public Transform[] backgrounds;
 
     float leftPosX = 0f;
@@ -14,6 +14,7 @@ public class scroll : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         yScreenHalfSize = Camera.main.orthographicSize;
         xScreenHalfSize = yScreenHalfSize * Camera.main.aspect;
 
@@ -26,7 +27,7 @@ public class scroll : MonoBehaviour
     {
         for (int i = 0; i < backgrounds.Length; i++)
         {
-            backgrounds[i].position += new Vector3(-speed, 0, 0) * Time.deltaTime;
+            backgrounds[i].position += new Vector3(-gameManager.environmentSpeed, 0, 0) * Time.deltaTime;
 
             if (backgrounds[i].position.x < leftPosX)
             {
