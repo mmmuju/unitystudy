@@ -26,6 +26,8 @@ public class PlayerControl : MonoBehaviour
     bool isSlide;
     bool isHit;
 
+    int maxJumpDur; // 점프 최대 지속시간 (버그 방지용)
+
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         box = GetComponent<BoxCollider2D>();
@@ -34,45 +36,37 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    void FixedUpdate() {
-        // check midair
-        if(rigid.velocity.y < 0) {
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.3f, LayerMask.GetMask("Floor"));
-            if(rayHit.collider != null) {
-                if(rayHit.distance < 1.1f) {
-                    anim.SetBool("isJump", false);
-                    isJump = false;
-                }
-                    
-            }
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(hp);
+        Debug.Log(maxJumpDur);
         // jump
         if (Input.GetButtonDown("Jump") && !isJump && !isHit)
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            anim.SetBool("isJump", true);
-            isJump = true;
+            Jump(true);
+            Slide(false);
         }
+
+        // check midair
+        if (rigid.velocity.y < 0)
+        {
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.2f, LayerMask.GetMask("Floor"));
+            if (rayHit.collider != null)
+                Jump(false);
+        }
+
+        if(maxJumpDur > 0)
+            maxJumpDur--;
+        if(maxJumpDur == 0)
+            Jump(false);
 
         // slide
-        if (Input.GetKeyDown("down") && !isHit && !isJump)
-        {
-            anim.SetBool("isSlide", true);
-            isSlide = true;
-        }
-
-        if (Input.GetKeyUp("down"))
-        {
-            anim.SetBool("isSlide", false);
-            isSlide = false;
-        }
-
+        if (!isHit && !isJump) {
+            if(Input.GetKey("down"))
+                Slide(true);
+            else
+                Slide(false);
+        }   
         Attack();
         
         curAttackDelay += Time.deltaTime;
@@ -86,6 +80,23 @@ public class PlayerControl : MonoBehaviour
         rigid.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
         curAttackDelay = 0;
     }
+
+    void Jump(bool b)
+    {
+        if(b) {
+            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            maxJumpDur = 200;
+        }
+            
+        anim.SetBool("isJump", b);
+        isJump = b;
+    }
+
+    void Slide(bool b) {
+        anim.SetBool("isSlide", b);
+        isSlide = b;
+    }
+
 
     private IEnumerator OnHit(int dmg) {
         hp -= dmg;
@@ -106,7 +117,7 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    void OnTriggerStay2D(Collider2D other) {    
+    void OnTriggerStay2D(Collider2D other) {   
         // get dmg
         if(!isHit) {
             if (other.gameObject.tag == "Spike")

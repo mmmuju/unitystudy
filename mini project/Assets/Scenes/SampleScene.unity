@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 270144601}
   m_Layer: 7
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -878,6 +878,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: hitDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: attackDelay
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 511038903719089967, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: m_Name
       value: Player
@@ -892,11 +900,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089970, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.2
+      value: -7.32
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089970, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.35
+      value: -3.48
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089970, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: m_LocalPosition.z
@@ -930,5 +938,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089971, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_Size.x
+      value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089971, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_Size.y
+      value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089971, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1996162209, guid: c9d2dbd5ceef09844afc88e45e438664, type: 3}
+    - target: {fileID: 511038903719089971, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089972, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089973, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b2795cd12274c7b42982cd86687f8d7c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
