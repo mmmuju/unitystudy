@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
+    Text ScoreText;
+
+    float time = 0f;
+
     Rigidbody2D rigid;
     BoxCollider2D box;
     SpriteRenderer spriteRenderer;
@@ -26,6 +31,8 @@ public class PlayerControl : MonoBehaviour
     bool isSlide;
     bool isHit;
 
+    float timer = 0.0f;
+
     int maxJumpDur; // 점프 최대 지속시간 (버그 방지용)
 
     void Start() {
@@ -39,6 +46,17 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timer += Time.deltaTime;
+
+        if (timer > 1)
+        {
+            timer = 0;
+            Score.score += 1;
+
+            ScoreText = GameObject.Find("Canvas").transform.FindChild("ScoreText").GetComponent<Text>();
+            ScoreText.text = "Score: " + Score.score;
+        }
+
         Debug.Log(maxJumpDur);
         // jump
         if (Input.GetButtonDown("Jump") && !isJump && !isHit)

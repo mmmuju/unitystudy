@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class EnemyControl : MonoBehaviour
 {
+    Text ScoreText;
     Rigidbody2D rigid;
     BoxCollider2D box;
     SpriteRenderer spriteRenderer;
@@ -56,7 +59,13 @@ public class EnemyControl : MonoBehaviour
         hp -= dmg;
 
         if (hp == 0)
+        {
             Destroy(gameObject);
+            Score.score += 100;
+
+            ScoreText = GameObject.Find("Canvas").transform.FindChild("ScoreText").GetComponent<Text>();
+            ScoreText.text = "Score: " + Score.score;
+        }
 
     }
 
