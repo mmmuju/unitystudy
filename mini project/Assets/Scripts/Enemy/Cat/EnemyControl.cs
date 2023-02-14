@@ -19,7 +19,7 @@ public class EnemyControl : MonoBehaviour
 
     public int hp;
 
-    float speed;
+    public float speed;
 
 
     void Start()
@@ -28,8 +28,7 @@ public class EnemyControl : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        speed = Random.Range(gameManager.enemyMinSpeed, gameManager.enemyMaxSpeed);
+        
         Invoke("Attack", attackDelay);
 
     }
@@ -42,11 +41,13 @@ public class EnemyControl : MonoBehaviour
 
 
     void Attack() {
-        GameObject bullet = Instantiate(enemyBullet, transform.position, transform.rotation);
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        if (player != null) {
+            GameObject bullet = Instantiate(enemyBullet, transform.position, transform.rotation);
+            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            Vector3 direction = player.transform.position - transform.position;
 
-        Vector3 direction = player.transform.position - transform.position;
-        rigid.AddForce(direction.normalized * bulletSpeed, ForceMode2D.Impulse);
+            rigid.AddForce(direction.normalized * bulletSpeed, ForceMode2D.Impulse);
+        }
 
         Invoke("Attack", attackDelay);
     }
@@ -59,13 +60,7 @@ public class EnemyControl : MonoBehaviour
         hp -= dmg;
 
         if (hp == 0)
-        {
-            Destroy(gameObject);
-            Score.score += 100;
-
-            ScoreText = GameObject.Find("Canvas").transform.FindChild("ScoreText").GetComponent<Text>();
-            ScoreText.text = "Score: " + Score.score;
-        }
+            Destroyed();
 
     }
 
@@ -75,6 +70,21 @@ public class EnemyControl : MonoBehaviour
         {
             OnHit(1);
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "Player")
+        {
+            Destroyed();
+        }
+    }
+
+    void Destroyed() {
+        Destroy(gameObject);
+        Score.score += 100;
+
+        ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
+        ScoreText.text = "Score: " + Score.score;
     }
 
 }

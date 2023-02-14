@@ -18,11 +18,9 @@ public class GameManager : MonoBehaviour
     public float obstacleDelayMargin;
 
     [Header("Enemy Setting")]
-    public GameObject enemy;
+    public GameObject[] enemy;
 
     public float enemyDelay;
-    public float enemyMinSpeed;
-    public float enemyMaxSpeed;
     public float enemyDelayMargin;
 
     // Start is called before the first frame update
@@ -57,9 +55,24 @@ public class GameManager : MonoBehaviour
 
     void spawnEnemy()
     {
-        Instantiate<GameObject>(enemy, new Vector2(15, -3f), Quaternion.identity);
-        EnemyControl enemyControl = enemy.GetComponent<EnemyControl>();
-        enemyControl.player = player;
+        int enemyNumber = Random.Range(0, enemy.Length);
+
+        switch(enemyNumber) {
+            case 0: // cat
+                Instantiate<GameObject>(enemy[0], new Vector2(15, -3f), Quaternion.identity);
+                EnemyControl enemyControl = enemy[0].GetComponent<EnemyControl>();
+                enemyControl.player = player;
+            break;
+
+            case 1: // crow
+                float spawnHeight = Random.Range(-2, 4);
+                Instantiate<GameObject>(enemy[1], new Vector2(15, spawnHeight), Quaternion.identity);
+                CrowControl crowControl = enemy[1].GetComponent<CrowControl>();
+                crowControl.player = player;
+            break;
+
+        }
+        
 
         float margin = Random.Range(0, enemyDelayMargin);
         Invoke("spawnEnemy", enemyDelay + enemyDelayMargin);

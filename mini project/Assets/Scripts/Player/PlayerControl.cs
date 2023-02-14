@@ -53,11 +53,9 @@ public class PlayerControl : MonoBehaviour
             timer = 0;
             Score.score += 1;
 
-            ScoreText = GameObject.Find("Canvas").transform.FindChild("ScoreText").GetComponent<Text>();
+            ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
             ScoreText.text = "Score: " + Score.score;
         }
-
-        Debug.Log(maxJumpDur);
         // jump
         if (Input.GetButtonDown("Jump") && !isJump && !isHit)
         {
@@ -142,8 +140,9 @@ public class PlayerControl : MonoBehaviour
             {
                 StartCoroutine(OnHit(1));
             }
-            else if (other.gameObject.tag == "Icicle" && !isSlide) {
-                StartCoroutine(OnHit(1));
+            else if (other.gameObject.tag == "Icicle") {
+                if(!isSlide)
+                    StartCoroutine(OnHit(1));
             }
         }
         
@@ -156,6 +155,13 @@ public class PlayerControl : MonoBehaviour
             {
                 StartCoroutine(OnHit(1));
             }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Enemy")
+        {
+            StartCoroutine(OnHit(1));
         }
     }
 
