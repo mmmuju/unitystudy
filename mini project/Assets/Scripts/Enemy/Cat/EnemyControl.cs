@@ -9,7 +9,7 @@ public class EnemyControl : MonoBehaviour
     Text ScoreText;
     Rigidbody2D rigid;
     BoxCollider2D box;
-    SpriteRenderer spriteRenderer;
+    Animator anim;
     GameManager gameManager;
 
     public GameObject enemyBullet;
@@ -26,7 +26,7 @@ public class EnemyControl : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         box = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         
         Invoke("Attack", attackDelay);
@@ -58,10 +58,16 @@ public class EnemyControl : MonoBehaviour
     void OnHit(int dmg)
     {
         hp -= dmg;
+        anim.SetBool("isHit", true);
+        Invoke("ReturnSprite", 0.1f);
 
         if (hp == 0)
             Destroyed();
 
+    }
+
+    void ReturnSprite() {
+        anim.SetBool("isHit", false);
     }
 
     void OnTriggerEnter2D(Collider2D other)

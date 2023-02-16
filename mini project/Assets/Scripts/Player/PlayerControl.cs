@@ -33,8 +33,6 @@ public class PlayerControl : MonoBehaviour
 
     float timer = 0.0f;
 
-    int maxJumpDur; // 점프 최대 지속시간 (버그 방지용)
-
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
         box = GetComponent<BoxCollider2D>();
@@ -42,10 +40,25 @@ public class PlayerControl : MonoBehaviour
         anim = GetComponent<Animator>();
 
     }
+    
+    void FixedUpdate() {
+        // check midair
+        if (rigid.velocity.y < 0)
+        {
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Floor"));
+            if (rayHit.collider != null)
+            {
+                if (rayHit.distance < 0.5f)
+                    Jump(false);
+            }
+
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
+        // survive score
         timer += Time.deltaTime;
 
         if (timer > 1)
@@ -56,25 +69,13 @@ public class PlayerControl : MonoBehaviour
             ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
             ScoreText.text = "Score: " + Score.score;
         }
+
         // jump
-        if (Input.GetButtonDown("Jump") && !isJump && !isHit)
+        if (Input.GetButton("Jump") && !isJump && !isHit)
         {
             Jump(true);
             Slide(false);
         }
-
-        // check midair
-        if (rigid.velocity.y < 0)
-        {
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1.2f, LayerMask.GetMask("Floor"));
-            if (rayHit.collider != null)
-                Jump(false);
-        }
-
-        if(maxJumpDur > 0)
-            maxJumpDur--;
-        if(maxJumpDur == 0)
-            Jump(false);
 
         // slide
         if (!isHit && !isJump) {
@@ -83,6 +84,8 @@ public class PlayerControl : MonoBehaviour
             else
                 Slide(false);
         }   
+
+        // attack
         Attack();
         
         curAttackDelay += Time.deltaTime;
@@ -99,10 +102,8 @@ public class PlayerControl : MonoBehaviour
 
     void Jump(bool b)
     {
-        if(b) {
+        if(b)
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-            maxJumpDur = 200;
-        }
             
         anim.SetBool("isJump", b);
         isJump = b;
@@ -118,7 +119,7 @@ public class PlayerControl : MonoBehaviour
         hp -= dmg;
 
         if(hp == 0)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            gameOver();
 
 
         anim.SetBool("isHit", true); // 맞는 애니메이션 전환
@@ -163,6 +164,11 @@ public class PlayerControl : MonoBehaviour
         {
             StartCoroutine(OnHit(1));
         }
+    }
+
+    void gameOver() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Score.score = 0;
     }
 
 

@@ -9,7 +9,7 @@ public class CrowControl : MonoBehaviour
     Text ScoreText;
     Rigidbody2D rigid;
     BoxCollider2D box;
-    SpriteRenderer spriteRenderer;
+    Animator anim;
     GameManager gameManager;
     public GameObject player;
 
@@ -22,27 +22,39 @@ public class CrowControl : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         box = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
     }
 
     void Update()
-    {
-        Vector3 curPos = transform.position;
-        Vector3 direction = Vector3.zero;
-        if(player != null)
-            direction = player.transform.position - transform.position;
-        transform.position = curPos + direction.normalized * speed * Time.deltaTime; 
+    {   
+        if (player != null) {
+            Vector3 curPos = transform.position;
+            Vector3 direction = player.transform.position - transform.position;
+            transform.position = curPos + direction.normalized * speed * Time.deltaTime;
+        }
+
+        else
+            Destroy(gameObject);
+            
+        
     }
 
     void OnHit(int dmg)
     {
         hp -= dmg;
+        anim.SetBool("isHit", true);
+        Invoke("ReturnSprite", 0.1f);
 
         if (hp == 0)
             Destroyed();
 
+    }
+
+    void ReturnSprite()
+    {
+        anim.SetBool("isHit", false);
     }
 
     void OnTriggerEnter2D(Collider2D other)

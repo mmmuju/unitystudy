@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8901312469948980567}
   - component: {fileID: 5011686583611842559}
   - component: {fileID: 8698767632356174710}
-  - component: {fileID: 4312990850719744458}
+  - component: {fileID: 5949580257848747846}
   m_Layer: 8
   m_Name: Icicle
   m_TagString: Icicle
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4312990850719744458
+--- !u!114 &5949580257848747846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

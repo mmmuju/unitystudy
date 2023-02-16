@@ -18,7 +18,7 @@ public class Scroll : MonoBehaviour
         yScreenHalfSize = Camera.main.orthographicSize;
         xScreenHalfSize = yScreenHalfSize * Camera.main.aspect;
 
-        leftPosX = -(xScreenHalfSize * 2);
+        leftPosX = -(xScreenHalfSize * 2.5f);
         rightPosX = xScreenHalfSize * 2 * backgrounds.Length;
     }
 
