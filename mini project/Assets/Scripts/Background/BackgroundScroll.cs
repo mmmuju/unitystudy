@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scroll : MonoBehaviour
+public class BackgroundScroll : MonoBehaviour
 {
     GameManager gameManager;
     public Transform[] backgrounds;
