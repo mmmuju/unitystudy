@@ -1078,6 +1078,14 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: rollCool
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: rollDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: attackDelay
       value: 0.4
       objectReference: {fileID: 0}

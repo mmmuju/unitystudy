@@ -27,11 +27,18 @@ public class PlayerControl : MonoBehaviour
     public int hp;
     public float hitDelay;
 
+    [Header("Skills")]
+    public float rollDelay;
+    public float rollCool;
+
     bool isJump;
     bool isSlide;
     bool isHit;
 
     float timer = 0.0f;
+
+    bool skill1 = true;
+    bool skill2 = true;
 
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
@@ -39,6 +46,7 @@ public class PlayerControl : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
+        PlayerSkill.skillOrder[0] = 1;
     }
     
     void FixedUpdate() {
@@ -87,8 +95,17 @@ public class PlayerControl : MonoBehaviour
 
         // attack
         Attack();
-        
         curAttackDelay += Time.deltaTime;
+
+        // skill
+        if (Input.GetButtonDown("Skill1")) {
+            SelectSkill(PlayerSkill.skillOrder[0], true);
+        }
+
+        if (Input.GetButtonDown("Skill2"))
+        {
+            SelectSkill(PlayerSkill.skillOrder[1], false);
+        }
     }
 
     void Attack() {
@@ -112,6 +129,62 @@ public class PlayerControl : MonoBehaviour
     void Slide(bool b) {
         anim.SetBool("isSlide", b);
         isSlide = b;
+    }
+
+    void SelectSkill(int id, bool isFirstSkill) {
+        if(isFirstSkill) {
+            switch (id)
+            {
+                case 1: // type 1: roll
+                    if (skill1 && !isJump) {
+                        skill1 = false;
+                        StartCoroutine(Roll());
+                        StartCoroutine(SkillCooldown(rollCool, isFirstSkill));
+                    }
+                        
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+        
+        else {
+            switch (id)
+            {
+                case 1:
+                    if (skill2)
+                        StartCoroutine(Roll());
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator Roll() {
+        anim.SetBool("isRoll", true);
+        isHit = true;
+        this.gameObject.layer = 3; // 레이어를 잠깐 변경 (3: 무적)해서 장애물간 충돌 무시
+
+        yield return new WaitForSeconds(rollDelay); // 피격 지속시간 (다른 동작 불가능)
+
+        anim.SetBool("isRoll", false); // 원상복구
+        isHit = false;
+        this.gameObject.layer = 0; // 원상복구2
+    }
+
+    private IEnumerator SkillCooldown(float cool, bool isFirstSkill)
+    {
+        yield return new WaitForSeconds(cool);
+
+        if(isFirstSkill)
+            skill1 = true;
+        else
+            skill2 = true;
     }
 
 
