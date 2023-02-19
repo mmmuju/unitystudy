@@ -16,6 +16,7 @@ public class ObstacleMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Score.isRunning) return;
         Vector3 curPos = transform.position;
         transform.position = curPos + Vector3.left * gameManager.environmentSpeed * Time.deltaTime;
     }

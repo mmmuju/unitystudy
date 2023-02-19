@@ -28,7 +28,9 @@ public class CrowControl : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
+        if (!Score.isRunning) return;
+
         if (player != null) {
             Vector3 curPos = transform.position;
             Vector3 direction = player.transform.position - transform.position;

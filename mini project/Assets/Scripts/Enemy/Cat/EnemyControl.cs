@@ -28,13 +28,19 @@ public class EnemyControl : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
         anim = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        
+        ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
+
         Invoke("Attack", attackDelay);
 
     }
 
     void Update()
     {
+        if (!Score.isRunning)
+        {
+            CancelInvoke();
+            return;
+        }
         Vector3 curPos = transform.position;
         transform.position = curPos + Vector3.left * speed * Time.deltaTime;
     }
@@ -89,8 +95,7 @@ public class EnemyControl : MonoBehaviour
         Destroy(gameObject);
         Score.score += 100;
 
-        ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
-        ScoreText.text = "Score: " + Score.score;
+        ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
     }
 
 }

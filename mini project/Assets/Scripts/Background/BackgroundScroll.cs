@@ -25,6 +25,8 @@ public class BackgroundScroll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Score.isRunning) return;
+
         for (int i = 0; i < backgrounds.Length; i++)
         {
             backgrounds[i].position += new Vector3(-gameManager.environmentSpeed, 0, 0) * Time.deltaTime;

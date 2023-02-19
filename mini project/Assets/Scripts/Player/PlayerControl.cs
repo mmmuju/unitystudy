@@ -7,8 +7,7 @@ using UnityEngine.UI;
 public class PlayerControl : MonoBehaviour
 {
     Text ScoreText;
-
-    float time = 0f;
+    Text GameOverText;
 
     Rigidbody2D rigid;
     BoxCollider2D box;
@@ -46,10 +45,16 @@ public class PlayerControl : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
+        Score.maxScore = PlayerPrefs.GetInt("maxScore");
+
+        ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
+        ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
+
         PlayerSkill.skillOrder[0] = 1;
     }
     
     void FixedUpdate() {
+        if (!Score.isRunning) return;
         // check midair
         if (rigid.velocity.y < 0)
         {
@@ -66,6 +71,23 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Score.isRunning)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                if(Score.score > Score.maxScore)
+                {
+                    PlayerPrefs.SetInt("maxScore", Score.score);
+                }
+
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Score.isRunning = true;
+                Score.score = 0;
+            }
+
+            return;
+        }
+
         // survive score
         timer += Time.deltaTime;
 
@@ -74,8 +96,7 @@ public class PlayerControl : MonoBehaviour
             timer = 0;
             Score.score += 1;
 
-            ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
-            ScoreText.text = "Score: " + Score.score;
+            ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
         }
 
         // jump
@@ -207,9 +228,10 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    void OnTriggerStay2D(Collider2D other) {   
+    void OnTriggerStay2D(Collider2D other) {
+        if (!Score.isRunning) return;
         // get dmg
-        if(!isHit) {
+        if (!isHit) {
             if (other.gameObject.tag == "Spike")
             {
                 StartCoroutine(OnHit(1));
@@ -223,6 +245,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        if (!Score.isRunning) return;
         if (!isHit)
         {
             if (other.gameObject.tag == "EnemyBullet")
@@ -240,9 +263,8 @@ public class PlayerControl : MonoBehaviour
     }
 
     void gameOver() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Score.score = 0;
+        Score.isRunning = false;
+        GameOverText = GameObject.Find("Canvas").transform.Find("GameOverText").GetComponent<Text>();
+        GameOverText.text = "  Game Over\nRestart: Space";
     }
-
-
 }
