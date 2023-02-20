@@ -1079,8 +1079,8 @@ MonoBehaviour:
   icicleHeight: 2.3
   obstacleDelayMargin: 2
   enemy:
-  - {fileID: 173854780981905411, guid: f046c3d680edc5448884d73b68e932e0, type: 3}
-  - {fileID: 4310036919865659183, guid: 0ce66810ca6b43942ba4ed2bceebdaef, type: 3}
+  - {fileID: 6596577690220742754, guid: f046c3d680edc5448884d73b68e932e0, type: 3}
+  - {fileID: 9125659012547681220, guid: 0ce66810ca6b43942ba4ed2bceebdaef, type: 3}
   enemyDelay: 3
   enemyDelayMargin: 3
 --- !u!1001 &2118879691
