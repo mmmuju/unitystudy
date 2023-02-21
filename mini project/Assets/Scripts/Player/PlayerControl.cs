@@ -223,7 +223,9 @@ public class PlayerControl : MonoBehaviour
         yield return new WaitForSeconds(hitDelay); // 피격 지속시간 (다른 동작 불가능)
 
         anim.SetBool("isHit", false); // 원상복구
+        anim.SetBool("isJump", false);
         isHit = false;
+        isJump = false;
         this.gameObject.layer = 0; // 원상복구2
 
     }

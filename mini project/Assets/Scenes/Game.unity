@@ -526,7 +526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -643,7 +643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1073,9 +1073,9 @@ MonoBehaviour:
   player: {fileID: 494582638}
   environmentSpeed: 10
   spike: {fileID: 179315301591660316, guid: c0747121ec60c374e957b56b3c006433, type: 3}
-  icicle: {fileID: 8660539502610090601, guid: e28b0f82ced61e34cbe15644c5afa07c, type: 3}
+  icicle: {fileID: 9199004884255350257, guid: b302a314ac09b31439d4526252e2936c, type: 3}
   obstacleDelay: 3
-  spikeHeight: -3
+  spikeHeight: -2.5
   icicleHeight: 2.3
   obstacleDelayMargin: 2
   enemy:
@@ -1100,7 +1100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2466296322611670772, guid: 6ca5cd61a202eb540b54460b749f93f6, type: 3}
       propertyPath: m_LocalPosition.z
