@@ -63,7 +63,7 @@ public class EnemyControl : MonoBehaviour
             Destroy(gameObject);
             Score.score += 100;
 
-            ScoreText = GameObject.Find("Canvas").transform.FindChild("ScoreText").GetComponent<Text>();
+            ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
             ScoreText.text = "Score: " + Score.score;
         }
 
