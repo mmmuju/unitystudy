@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c9d2dbd5ceef09844afc88e45e438664
+guid: 12fa9db22ec10f1418e91cbd9718d9d4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -106,7 +106,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -117,148 +117,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: jws_0
+      name: roll_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 69
-        width: 20
-        height: 23
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df16510009b1a1644b39e5402dcb69ca
-      internalID: -1996162209
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jws_1
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 69
-        width: 20
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 39a7aeb7c93c916439cfb8f0704055c4
-      internalID: 1415755595
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jws_2
-      rect:
-        serializedVersion: 2
-        x: 69
-        y: 69
-        width: 20
-        height: 23
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.6, y: 0.5}
+      pivot: {x: 0.5, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b481dd9add1d3b4580c4588dcd6333c
-      internalID: 567081290
+      spriteID: 76c003c56c490e04f91ac79745d79303
+      internalID: 704958682
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jws_3
+      name: roll_1
       rect:
         serializedVersion: 2
-        x: 4
-        y: 38
-        width: 23
-        height: 22
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.4}
+      pivot: {x: 0.5, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c098a6929944c8740bb74a1763cb86f0
-      internalID: -1707213813
+      spriteID: 7409b686f212e97458a9e5af1a0acb0e
+      internalID: 831486092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jws_4
+      name: roll_2
       rect:
         serializedVersion: 2
-        x: 38
-        y: 37
-        width: 21
-        height: 22
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e5bd0cf002924146ad2b29f394f8f1b
-      internalID: -491300317
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: jws_5
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 38
-        width: 19
-        height: 16
+        x: 64
+        y: 32
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.8}
+      pivot: {x: 0.5, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb1a48a0ab2873d46837677524ee153c
-      internalID: -1922327783
+      spriteID: b13b6cdc39cfe0b4394036b139d3eda6
+      internalID: -200178160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: jws_6
+      name: roll_3
       rect:
         serializedVersion: 2
-        x: 7
-        y: 6
-        width: 20
-        height: 16
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.8}
+      pivot: {x: 0.5, y: 0.55}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53a38038d5500cb498fcb1764860aa37
-      internalID: -1684177803
+      spriteID: 325d4efe921956645a7f393a72978d2e
+      internalID: 1421114160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: roll_4
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.55}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e15a48b22d9079a46b67c60ae8ee119b
+      internalID: 455019460
       vertices: []
       indices: 
       edges: []
@@ -274,13 +232,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      jws_3: -1707213813
-      jws_2: 567081290
-      jws_0: -1996162209
-      jws_6: -1684177803
-      jws_4: -491300317
-      jws_1: 1415755595
-      jws_5: -1922327783
+      roll_1: 831486092
+      roll_3: 1421114160
+      roll_4: 455019460
+      roll_2: -200178160
+      roll_0: 704958682
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

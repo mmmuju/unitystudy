@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class ObstacleMove : MonoBehaviour
 {
     GameManager gameManager;   
     
@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!Score.isRunning) return;
         Vector3 curPos = transform.position;
         transform.position = curPos + Vector3.left * gameManager.environmentSpeed * Time.deltaTime;
     }
