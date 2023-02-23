@@ -19,25 +19,53 @@ public class PlayerControl : MonoBehaviour
 
     [Header("Attack")]
     public GameObject bulletTypeA;
+    public float bulletSpeed = 20;
+    public float bulletOffsetX = 0;
+    public float bulletOffsetY = -0.25f;
     public float attackDelay;
     float curAttackDelay = 0;
 
     [Header("Status")]
     public int hp;
     public float hitDelay;
+    public float timer = 0.0f;
 
     [Header("Skills")]
+    [Header("Roll")]
     public float rollDelay;
     public float rollCool;
+
+    [Header("Boomerang")]
+    public GameObject bulletTypeB;
+    GameObject boomerang;
+    public float boomerangCool;
+    bool boomerangType; // 스킬 단축키에 따른 부메랑 타입을 지정하여 되돌아오는 부메랑 획득 시 해당 단축키 스킬의 쿨타임이 초기화됨
+                        // true = A false = B
+
+    [Header("Smite")]
+    public GameObject bulletTypeC;
+    public float smiteCool;
+
+    [Header("Accel")]
+    public float accelDuration;
+    public float accelDelay;
+    public float accelCool;
+
+    [Header("Multiple")]
+    public float multipleDuration;
+    public float multipleCool;
+    bool isMultiple = false;
 
     bool isJump;
     bool isSlide;
     bool isHit;
+    
 
-    float timer = 0.0f;
+    
 
-    bool skill1 = true;
-    bool skill2 = true;
+    float CoolSkillA = 0; // Q스킬 쿨타임 
+    float CoolSkillB = 0; // W스킬 쿨타임 
+
 
     void Start() {
         rigid = GetComponent<Rigidbody2D>();
@@ -50,7 +78,8 @@ public class PlayerControl : MonoBehaviour
         ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
         ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
 
-        PlayerSkill.skillOrder[0] = 1;
+        PlayerSkill.skillOrder[0] = 4; // Q스킬에 할당된 스킬 타입 (임시)
+        PlayerSkill.skillOrder[1] = 5; // W스킬에 할당된 스킬 타입 (임시)
     }
     
     void FixedUpdate() {
@@ -71,6 +100,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(hp);
         if (!Score.isRunning)
         {
             if(Input.GetKeyDown(KeyCode.Space))
@@ -120,22 +150,15 @@ public class PlayerControl : MonoBehaviour
 
         // skill
         if (Input.GetButtonDown("Skill1")) {
-            SelectSkill(PlayerSkill.skillOrder[0], true);
+            if(CoolSkillA < 1.0f)
+                SelectSkill(PlayerSkill.skillOrder[0], true);
         }
 
         if (Input.GetButtonDown("Skill2"))
         {
-            SelectSkill(PlayerSkill.skillOrder[1], false);
+            if(CoolSkillB < 1.0f)
+                SelectSkill(PlayerSkill.skillOrder[1], false);
         }
-    }
-
-    void Attack() {
-        if (curAttackDelay < attackDelay)
-            return;
-        GameObject bullet = Instantiate(bulletTypeA, transform.position, transform.rotation);
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-        rigid.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
-        curAttackDelay = 0;
     }
 
     void Jump(bool b)
@@ -152,44 +175,96 @@ public class PlayerControl : MonoBehaviour
         isSlide = b;
     }
 
-    void SelectSkill(int id, bool isFirstSkill) {
-        if(isFirstSkill) {
-            switch (id)
-            {
-                case 1: // type 1: roll
-                    if (skill1 && !isJump) {
-                        skill1 = false;
-                        StartCoroutine(Roll());
-                        StartCoroutine(SkillCooldown(rollCool, isFirstSkill));
-                    }
-                        
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
+    void Attack()
+    {
+        if (curAttackDelay < attackDelay)
+            return;
+        Vector3 bulletLoc = transform.position + new Vector3(bulletOffsetX, bulletOffsetY, 0);
+        GameObject bullet = Instantiate(bulletTypeA, bulletLoc, transform.rotation);
+        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        rigid.AddForce(Vector2.right * bulletSpeed, ForceMode2D.Impulse);
+        if(isMultiple) {
+            GameObject bullet2 = Instantiate(bulletTypeA, bulletLoc, transform.rotation);
+            Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
+            rigid2.AddForce(new Vector2(bulletSpeed, bulletSpeed/3), ForceMode2D.Impulse);
+
+            GameObject bullet3 = Instantiate(bulletTypeA, bulletLoc, transform.rotation);
+            Rigidbody2D rigid3 = bullet3.GetComponent<Rigidbody2D>();
+            rigid3.AddForce(new Vector2(bulletSpeed, -(bulletSpeed/3)), ForceMode2D.Impulse);
         }
-        
-        else {
-            switch (id)
-            {
-                case 1:
-                    if (skill2)
-                        StartCoroutine(Roll());
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
+
+        curAttackDelay = 0;
+    }
+
+    void SelectSkill(int id, bool isSkillA) {
+        switch (id)
+        {
+            case 1: // type 1: roll
+                if (!isJump) {
+                    StartCoroutine(Roll());
+                    if(isSkillA)
+                        StartCoroutine(CooldownSkillA(rollCool));
+                    else
+                        StartCoroutine(CooldownSkillB(rollCool));
+                }
+                break;
+            case 2: // type 2: boomerang
+                Boomerang(isSkillA);
+                if(isSkillA)
+                    StartCoroutine(CooldownSkillA(boomerangCool));
+                else
+                    StartCoroutine(CooldownSkillB(boomerangCool));
+                break;
+            case 3: // type 3: smite
+                Smite();
+                if(isSkillA)
+                    StartCoroutine(CooldownSkillA(smiteCool));
+                else
+                    StartCoroutine(CooldownSkillB(smiteCool));
+                break;
+            case 4: // type 4: accel
+                StartCoroutine(Accel(accelDuration));
+                if(isSkillA)
+                    StartCoroutine(CooldownSkillA(accelCool));
+                else
+                    StartCoroutine(CooldownSkillB(accelCool));
+                break;
+            case 5: // type 5: multiple
+                StartCoroutine(Multiple(multipleDuration));
+                if (isSkillA)
+                    StartCoroutine(CooldownSkillA(multipleCool));
+                else
+                    StartCoroutine(CooldownSkillB(multipleCool));
+                break;
         }
     }
 
+    private IEnumerator CooldownSkillA(float cool)
+    {
+        CoolSkillA = cool;
+    
+        while(CoolSkillA > 1.0f) {
+            CoolSkillA -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+    }
+
+    private IEnumerator CooldownSkillB(float cool)
+    {
+        CoolSkillB = cool;
+
+        while (CoolSkillB> 1.0f) {
+            CoolSkillB -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+    }
+        
     private IEnumerator Roll() {
         anim.SetBool("isRoll", true);
         isHit = true;
-        this.gameObject.layer = 3; // 레이어를 잠깐 변경 (3: 무적)해서 장애물간 충돌 무시
+        this.gameObject.layer = 3; // 레이어를 잠깐 변경(3: 무적)해서 장애물간 충돌 무시
 
         yield return new WaitForSeconds(rollDelay); // 피격 지속시간 (다른 동작 불가능)
 
@@ -198,14 +273,29 @@ public class PlayerControl : MonoBehaviour
         this.gameObject.layer = 0; // 원상복구2
     }
 
-    private IEnumerator SkillCooldown(float cool, bool isFirstSkill)
-    {
-        yield return new WaitForSeconds(cool);
+    void Boomerang(bool b) {
+        Instantiate<GameObject>(bulletTypeB, transform.position, transform.rotation);
+        boomerangType = b;
+    }
 
-        if(isFirstSkill)
-            skill1 = true;
-        else
-            skill2 = true;
+    void Smite() {
+        Instantiate<GameObject>(bulletTypeC, transform.position + new Vector3(1.5f, 0, 0), transform.rotation);
+    }
+    
+    private IEnumerator Accel(float duration) {
+        float tempAttackDelay = attackDelay;
+        attackDelay = accelDelay;
+
+        yield return new WaitForSeconds(duration);
+        
+        attackDelay = tempAttackDelay;
+    }
+
+    private IEnumerator Multiple(float duration)
+    {
+        isMultiple = true;
+        yield return new WaitForSeconds(duration);
+        isMultiple = false;
     }
 
 
@@ -252,7 +342,18 @@ public class PlayerControl : MonoBehaviour
         {
             if (other.gameObject.tag == "EnemyBullet")
             {
-                StartCoroutine(OnHit(1));
+                StartCoroutine(OnHit(other.gameObject.GetComponent<EnemyBullet>().dmg));
+            }
+        }
+        if(other.gameObject.tag == "PlayerBoomerang") { // 부메랑 획득 시
+            if(other.gameObject.GetComponent<PlayerBoomerang>().status == 2) {
+                if(boomerangType) {
+                    CoolSkillA = 0;
+                }
+                else {
+                    CoolSkillB = 0;
+                }
+                Destroy(other.gameObject); 
             }
         }
     }

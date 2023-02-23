@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    public int dmg = 1;
     // Start is called before the first frame update
     void Start()
     {

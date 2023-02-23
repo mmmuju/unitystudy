@@ -720,7 +720,7 @@ Transform:
   m_GameObject: {fileID: 1283613147}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 17, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -893,7 +893,7 @@ Transform:
   m_GameObject: {fileID: 1588844684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -12, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 519420032}
@@ -1072,17 +1072,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 494582638}
   environmentSpeed: 10
+  accelMargin: 30
   spike: {fileID: 179315301591660316, guid: c0747121ec60c374e957b56b3c006433, type: 3}
   icicle: {fileID: 9199004884255350257, guid: b302a314ac09b31439d4526252e2936c, type: 3}
-  obstacleDelay: 3
+  obstacleDelay: 4
   spikeHeight: -2.5
   icicleHeight: 2.3
   obstacleDelayMargin: 2
   enemy:
   - {fileID: 6596577690220742754, guid: f046c3d680edc5448884d73b68e932e0, type: 3}
   - {fileID: 9125659012547681220, guid: 0ce66810ca6b43942ba4ed2bceebdaef, type: 3}
-  enemyDelay: 3
-  enemyDelayMargin: 3
+  enemyDelay: 2
+  enemyDelayMargin: 1
 --- !u!1001 &2118879691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1162,15 +1163,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: rollCool
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: accelCool
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: rollDelay
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: smiteCool
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: accelDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: attackDelay
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: bulletTypeB
+      value: 
+      objectReference: {fileID: 2919339627908779571, guid: 54dd89b9074e4cd46b6948b0ea155dd4, type: 3}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: bulletTypeC
+      value: 
+      objectReference: {fileID: 3612487403477667788, guid: 4f23766479b61bd4380bce6949555211, type: 3}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: multipleCool
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: accelDuration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: boomerangCool
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 511038903719089966, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
+      propertyPath: multipleDuration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 511038903719089967, guid: 681485a2b109c28428b78e646e3fab93, type: 3}
       propertyPath: m_Name

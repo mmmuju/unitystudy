@@ -11,6 +11,8 @@ TagManager:
   - EnemyBullet
   - Enemy
   - Floor
+  - PlayerBoomerang
+  - PlayerSmite
   layers:
   - Default
   - TransparentFX

@@ -49,7 +49,7 @@ public class CrowControl : MonoBehaviour
         anim.SetBool("isHit", true);
         Invoke("ReturnSprite", 0.1f);
 
-        if (hp == 0)
+        if (hp < 1)
             Destroyed();
 
     }
@@ -63,7 +63,11 @@ public class CrowControl : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerBullet")
         {
-            OnHit(1);
+            OnHit(other.gameObject.GetComponent<PlayerBullet>().dmg);
+        }
+        else if (other.gameObject.tag == "PlayerBoomerang")
+        {
+            OnHit(other.gameObject.GetComponent<PlayerBoomerang>().dmg);
         }
     }
     

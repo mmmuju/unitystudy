@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Basic Setting")]
     public GameObject player;
     public float environmentSpeed;
+    public float accelMargin;
+    float gameTimer = 0.0f;
 
     [Header("Obstacle Setting")]
     public GameObject spike;
@@ -34,7 +37,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameTimer += Time.deltaTime;
         if (!Score.isRunning) CancelInvoke();
+        if (gameTimer > accelMargin) {
+            environmentSpeed += (environmentSpeed / 10);
+            obstacleDelay -= (obstacleDelay / 10);
+            obstacleDelayMargin -= (obstacleDelayMargin / 10);
+            enemyDelay -= (enemyDelay / 10);
+            enemyDelayMargin -= (enemyDelayMargin / 10);
+            gameTimer = 0.0f;
+        }
     }
 
     void spawnObstacle() {
