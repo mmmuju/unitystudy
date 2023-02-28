@@ -11,6 +11,7 @@ public class CrowControl : MonoBehaviour
     BoxCollider2D box;
     Animator anim;
     GameManager gameManager;
+    public GameObject effect;
     public GameObject player;
 
     public int hp;
@@ -83,6 +84,9 @@ public class CrowControl : MonoBehaviour
     {
         Destroy(gameObject);
         Score.score += 100;
+
+        GameObject dieEffectObj = Instantiate(effect, transform.position, transform.rotation);
+        ParticleSystem dieEffect = dieEffectObj.GetComponent<ParticleSystem>();
 
         ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
         ScoreText.text = "Score: " + Score.score;

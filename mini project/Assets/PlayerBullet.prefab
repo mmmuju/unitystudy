@@ -137,3 +137,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
+  effect: {fileID: 5715662815967664008, guid: 80c334733a14596489e8d0fef5656a88, type: 3}

@@ -141,6 +141,7 @@ MonoBehaviour:
   enemyBullet: {fileID: 5593469261930802737, guid: 7e87b19a207cbb5439f7907447ef5ac6, type: 3}
   attackDelay: 1.5
   bulletSpeed: 15
+  effect: {fileID: 5715662815967664008, guid: 9b07d2c940a84044c8b2a8927d00c605, type: 3}
   player: {fileID: 0}
   hp: 5
   speed: 7
@@ -156,6 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b8a63cf4700b443b63bfe03ccf10f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dmg: 1
 --- !u!95 &4246309231644946235
 Animator:
   serializedVersion: 4

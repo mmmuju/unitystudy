@@ -15,6 +15,7 @@ public class EnemyControl : MonoBehaviour
     public GameObject enemyBullet;
     public float attackDelay;
     public float bulletSpeed;
+    public GameObject effect;
     public GameObject player;
 
     public int hp;
@@ -98,6 +99,9 @@ public class EnemyControl : MonoBehaviour
     void Destroyed() {
         Destroy(gameObject);
         Score.score += 100;
+
+        GameObject dieEffectObj = Instantiate(effect, transform.position, transform.rotation);
+        ParticleSystem dieEffect = dieEffectObj.GetComponent<ParticleSystem>();
 
         ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
     }

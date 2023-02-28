@@ -78,8 +78,8 @@ public class PlayerControl : MonoBehaviour
         ScoreText = GameObject.Find("Canvas").transform.Find("ScoreText").GetComponent<Text>();
         ScoreText.text = "Max Score: " + Score.maxScore + "\n" + "Score: " + Score.score;
 
-        PlayerSkill.skillOrder[0] = 4; // Q스킬에 할당된 스킬 타입 (임시)
-        PlayerSkill.skillOrder[1] = 5; // W스킬에 할당된 스킬 타입 (임시)
+        PlayerSkill.skillOrder[0] = 1; // Q스킬에 할당된 스킬 타입 (임시)
+        PlayerSkill.skillOrder[1] = 2; // W스킬에 할당된 스킬 타입 (임시)
     }
     
     void FixedUpdate() {
@@ -142,7 +142,7 @@ public class PlayerControl : MonoBehaviour
                 Slide(true);
             else
                 Slide(false);
-        }   
+        }
 
         // attack
         Attack();
@@ -158,6 +158,23 @@ public class PlayerControl : MonoBehaviour
         {
             if(CoolSkillB < 1.0f)
                 SelectSkill(PlayerSkill.skillOrder[1], false);
+        }
+
+        if (Input.GetKey("a")) {
+            PlayerSkill.skillOrder[0] = 1; // Q스킬에 할당된 스킬 타입 (임시)
+            PlayerSkill.skillOrder[1] = 2; // W스킬에 할당된 스킬 타입 (임시)
+        }
+
+        if (Input.GetKey("s"))
+        {
+            PlayerSkill.skillOrder[0] = 3; // Q스킬에 할당된 스킬 타입 (임시)
+            PlayerSkill.skillOrder[1] = 4; // W스킬에 할당된 스킬 타입 (임시)
+        }
+
+        if (Input.GetKey("d"))
+        {
+            PlayerSkill.skillOrder[0] = 5; // Q스킬에 할당된 스킬 타입 (임시)
+            PlayerSkill.skillOrder[1] = 1; // W스킬에 할당된 스킬 타입 (임시)
         }
     }
 
@@ -274,7 +291,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     void Boomerang(bool b) {
-        Instantiate<GameObject>(bulletTypeB, transform.position, transform.rotation);
+        Instantiate<GameObject>(bulletTypeB, transform.position + new Vector3(0, 0.3f, 0), transform.rotation);
         boomerangType = b;
     }
 
